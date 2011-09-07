@@ -86,7 +86,7 @@ public class ProductTest {
 
         Map<String,String> data = p.getStockStatus("form-as-ironman-phantom-wetsuit", "07-011101", items);
 
-        Assert.assertEquals("(in stock)", data.get("XS"));
+        Assert.assertEquals("(out of stock)", data.get("XS"));
 
     }
 

@@ -36,8 +36,8 @@ public class Page {
     }
 
     public void persistPage() {
-        DB db = Persistence.getInstance().getDB();
-        DBCollection coll = db.getCollection("pages");
+        //DB db = Persistence.getInstance().getDB();
+        //DBCollection coll = db.getCollection("pages");
         BasicDBObject m = new BasicDBObject();
 
         m.put("title", doc.title());
@@ -46,11 +46,10 @@ public class Page {
 
         this.persistContent(m);
 
-        Persistence.getInstance().update(coll, "url", url, m);
+        Persistence.getInstance().update("url", url, m);
     }
 
     protected void persistContent(DBObject m) {
-
         m.put("type", "generic");
     }
 

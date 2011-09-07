@@ -31,7 +31,7 @@ public class GenericCrawler implements Monitorable
 
     static Logger log = Logger.getLogger(GenericCrawler.class);
 
-    int resourcesCount = 25 ; // number of url that can be crawled simultaneously
+    int resourcesCount = 5 ; // number of url that can be crawled simultaneously
     int monitorPort = 6001 ;
     String userAgent = "firefox 3.0" ;
     String seedFile = null;

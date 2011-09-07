@@ -12,9 +12,12 @@
             <groupId>niocchi</groupId>
             <artifactId>niocchi</artifactId>
             <version>0.1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/niocchi.jar</systemPath>
         </dependency>
+          <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20090211</version>
+          </dependency>
           <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
