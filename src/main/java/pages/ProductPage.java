@@ -1,25 +1,25 @@
 package pages;
 
 import com.mongodb.DBObject;
-
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import pages.data.ItemData;
 
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.io.IOException;
 import java.net.URLEncoder;
-
-import pages.data.CategoryLink;
-import pages.data.ItemData;
-import util.TextUtil;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by IntelliJ IDEA.
@@ -33,6 +33,11 @@ public class ProductPage extends Page {
         super(url, d);
     }
 
+    public String toString() {
+        return "<ProductPage id:" + getItemId()
+                + " pageName:" + getPageName()
+                + ">";
+    }
 
     protected String getItemId() {
         return doc.getElementById("itemcode").text().replace("Item #: ", "");
@@ -86,8 +91,6 @@ public class ProductPage extends Page {
         m.put("price", getPrice());
         m.put("discount_price", getDiscountPrice());
 
-        System.out.println("persisting product "+getItemId());
-
         List<DBObject> objects = new LinkedList<DBObject>();
         for (ItemData d : getItemData()) {
             objects.add(d.getDBObject());
@@ -123,6 +126,7 @@ public class ProductPage extends Page {
         String code = getItemId();
 
         Map<String, String> stock = getStockStatus(formName, code, skus);
+
 
         for (ItemData d : ret) {
             d.stock = stock.get(d.sku);
@@ -224,9 +228,6 @@ public class ProductPage extends Page {
             new MultiThreadedHttpConnectionManager();
         HttpClient client = new HttpClient(connectionManager);
         HttpMethod m = new GetMethod(url);
-
-
-
 
         try {
             int statusCode = client.executeMethod(m);

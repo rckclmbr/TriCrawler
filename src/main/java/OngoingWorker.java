@@ -3,8 +3,9 @@ import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.niocchi.core.Crawler;
+import org.niocchi.core.MemoryResource;
+import org.niocchi.core.Query;
 import org.niocchi.core.Worker;
-import org.niocchi.core.query.Query;
 import pages.Page;
 import pages.PageFactory;
 
@@ -22,26 +23,25 @@ public class OngoingWorker extends Worker {
     static Logger log = Logger.getLogger(OngoingWorker.class);
     String savePath ;
 
-    public OngoingWorker( Crawler crawler, String savePath )
-    {
-
+    public OngoingWorker( Crawler crawler, String savePath ) {
         super( crawler );
         this.savePath = savePath ;
     }
 
 
-    public void processResource( Query query )
-    {
+    public void processResource( Query query ) {
         try {
 
-            if (query.getResource().getHTTPStatus() != 200)
+            if (query.getResource().getHTTPStatus() != 200) {
                 return;
+            }
 
-            String fileName = query.getURL().getFile() ;
-            if( fileName.length() == 0 ) fileName = "index.html" ;
-            String host = query.getHost() ;
+            String fileName = query.getURL().getFile();
+            if (fileName.length() == 0 ) fileName = "index.html";
+            String host = query.getHost();
 
-            InputStream data = new ByteArrayInputStream(query.getResource().getBytes());
+            MemoryResource resource = (MemoryResource) query.getResource();
+            InputStream data = new ByteArrayInputStream(resource.getBytes());
             Document doc = Jsoup.parse(data, "latin1", "http://www.trisports.com/");
 
             

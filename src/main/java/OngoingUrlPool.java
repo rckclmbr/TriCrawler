@@ -1,7 +1,7 @@
 import org.apache.log4j.Logger;
 import org.niocchi.core.URLPool;
 import org.niocchi.core.URLPoolException;
-import org.niocchi.core.query.Query;
+import org.niocchi.core.Query;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;

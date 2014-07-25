@@ -21,5 +21,12 @@ public class ItemData {
         obj.put("stock", stock);
         return obj;
     }
+
+    public String toString() {
+        return "<ItemData"
+                + " sku=" + sku
+                + " stock=" + stock
+                + ">";
+    }
     
 }
